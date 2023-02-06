@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:layout/basic_cupertino_app.dart';
-import 'package:layout/cookie_recipe.dart';
+import 'package:layout/cookie_recipe_screen.dart';
+import 'package:layout/my_painter.dart';
 
 import 'basic_material_app.dart';
+import 'framed_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +19,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // return BasicCupertinoApp();
     // return BasicMaterialApp();
-    return CookieRecipe();
+    return MaterialApp(
+      // home: FrammedScreen(),
+      home: CookieRecipeScreen(),
+    );
   }
 }
