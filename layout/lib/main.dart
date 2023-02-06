@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:layout/basic_cupertino_app.dart';
+import 'package:layout/cookie_recipe.dart';
 
 import 'basic_material_app.dart';
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // return BasicCupertinoApp();
-    return BasicMaterialApp();
+    // return BasicMaterialApp();
+    return CookieRecipe();
   }
 }
