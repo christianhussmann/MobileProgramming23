@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:layout/basic_cupertino_app.dart';
 import 'package:layout/cookie_recipe_screen.dart';
+import 'package:layout/grid_screen.dart';
 import 'package:layout/my_painter.dart';
 import 'package:layout/scrollable_list_screen.dart';
 
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // home: FrammedScreen(),
       // home: CookieRecipeScreen(),
-      home: ScrollableListScreen()
+      // home: ScrollableListScreen()
+      home: GridScreen()
     );
   }
 }
