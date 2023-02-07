@@ -7,6 +7,7 @@ import 'package:layout/cookie_recipe_screen.dart';
 import 'package:layout/grid_screen.dart';
 import 'package:layout/my_painter.dart';
 import 'package:layout/scrollable_list_screen.dart';
+import 'package:layout/sizing_screen.dart';
 
 import 'basic_material_app.dart';
 import 'framed_screen.dart';
@@ -21,16 +22,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if (Platform.isIOS) {
-      return BasicCupertinoApp();
-    } else {
-      return BasicMaterialApp();
-    }
-    // return MaterialApp(
-    //   // home: FrammedScreen(),
-    //   // home: CookieRecipeScreen(),
-    //   // home: ScrollableListScreen()
-    //   // home: GridScreen()
-    // );
+    // if (Platform.isIOS) {
+    //   return BasicCupertinoApp();
+    // } else {
+    //   return BasicMaterialApp();
+    // }
+    return MaterialApp(
+      // home: FrammedScreen(),
+      // home: CookieRecipeScreen(),
+      // home: ScrollableListScreen()
+      // home: GridScreen()
+      home: SizingScreen()
+    );
   }
 }
