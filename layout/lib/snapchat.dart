@@ -21,18 +21,22 @@ class SnapchatScreen extends StatelessWidget {
           children: [
             _buildChatList(howMany: 50),
             _buildActionPanel(),
-            Transform.translate(
-              offset: Offset(-20, -130),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: FloatingActionButton.large(
-                  onPressed: () {},
-                  child: Icon(Icons.message_outlined),
-                  backgroundColor: Colors.lightBlue,
-                ),
-              ),
-            )
+            _buildWriteFab()
           ],
+        ),
+      ),
+    );
+  }
+
+  Transform _buildWriteFab() {
+    return Transform.translate(
+      offset: Offset(-20, -130),
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: FloatingActionButton.large(
+          onPressed: () {},
+          child: Icon(Icons.message_outlined),
+          backgroundColor: Colors.lightBlue,
         ),
       ),
     );
