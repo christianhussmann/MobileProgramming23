@@ -13,13 +13,13 @@ class BasicCupertinoApp extends StatelessWidget {
       // theme: CupertinoThemeData(brightness: Brightness.dark),
       home: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          leading: Center(child: Text("Hello World")),
-          trailing: Row(
+          leading: Row(
             children: [
               CupertinoButton(onPressed: () {}, child: Icon(Icons.menu)),
               CupertinoButton(onPressed: () {}, child: Icon(Icons.favorite))
             ],
           ),
+          trailing: Center(child: Text("Hello World")),
         ),
         child: Center(child: Text('Body')),
       ),
