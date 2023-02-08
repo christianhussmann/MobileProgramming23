@@ -33,7 +33,7 @@ class SnapchatScreen extends StatelessWidget {
       offset: Offset(-20, -130),
       child: Align(
         alignment: Alignment.bottomRight,
-        child: FloatingActionButton.large(
+        child: FloatingActionButton(
           onPressed: () {},
           child: Icon(Icons.message_outlined),
           backgroundColor: Colors.lightBlue,
@@ -57,7 +57,7 @@ class SnapchatScreen extends StatelessWidget {
           child: Container(
             color: Colors.grey[200],
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -78,7 +78,7 @@ class SnapchatScreen extends StatelessWidget {
   CupertinoButton _buildActionButton(IconData iconData) {
     return CupertinoButton(
       onPressed: () {},
-      child: Icon(iconData, color: Colors.grey[900], size: 35),
+      child: Icon(iconData, color: Colors.grey[900], size: 30),
     );
   }
 
