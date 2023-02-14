@@ -44,14 +44,14 @@ class Enter extends Command {
 /// Clear the registry
 class Clear extends Command {
   Clear(super.input);
-  accept(registry) => input == 'clear';
+  accept(registry) => ['clear', 'c'].contains(input);
   execute(state) => state.copy(registry: [], undo: (_) => state.registry);
 }
 
 /// Print registry
 class Print extends Command {
   Print(super.input);
-  accept(registry) => ['', 'p', 'print'].contains(input);
+  accept(registry) => ['print', 'p', ''].contains(input);
   execute(state) {
     print(state.registry);
     return state;
