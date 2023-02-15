@@ -16,23 +16,45 @@ class State {
       State(registry: registry, history: [...history, undo]);
 }
 
+/// Factory functions for commands
+const commands = [
+  Enter.new,
+  Print.new,
+  Exit.new,
+  Clear.new,
+  Add.new,
+  Subtract.new,
+  Multiply.new,
+  Divide.new,
+  Undo.new,
+  Help.new,
+  Invalid.new
+];
+
 /// "interface" for all commands
 abstract class Command {
   final String input;
   const Command(String this.input);
 
+  /// Names/aliases for the command
+  List<String> get names => [];
+
+  /// Description of command
+  String get description;
+
   /// Whether the input is valid for the command on given registry
-  bool accept(List<num> registry);
+  bool accept(List<num> registry) => names.contains(input);
 
   /// Executing the command returns the next application state
   State execute(State state);
 }
 
-/// Insert/push a number to the registry
 class Enter extends Command {
+  final names = ['<number>'];
+  final description = 'Insert/push a number to the registry';
   final num? number;
   Enter(input)
-      : this.number = num.tryParse(input),
+      : number = num.tryParse(input),
         super(input);
   accept(registry) => number != null;
   execute(state) => state.copy(
@@ -41,46 +63,60 @@ class Enter extends Command {
       );
 }
 
-/// Clear the registry
 class Clear extends Command {
   Clear(super.input);
-  accept(registry) => ['clear', 'c'].contains(input);
+  final names = ['clear', 'c'];
+  final description = 'Clear the registry';
   execute(state) => state.copy(registry: [], undo: (_) => state.registry);
 }
 
-/// Print registry
 class Print extends Command {
+  final names = ['print', 'p', ''];
+  final description = 'Print registry';
   Print(super.input);
-  accept(registry) => ['print', 'p', ''].contains(input);
   execute(state) {
     print(state.registry);
     return state;
   }
 }
 
-/// Exit process
 class Exit extends Command {
   Exit(super.input);
-  accept(registry) => ['exit', 'quit', 'q'].contains(input);
+  final names = ['exit', 'quit', 'q'];
+  final description = 'Exit process';
   execute(state) => exit(1);
 }
 
-/// Undo previously executed command using the undo function in history stack
 class Undo extends Command {
+  final names = ['undo', 'u'];
+  final description =
+      'Undo previously executed command using the undo function in history stack';
   Undo(super.input);
-  accept(registry) => ['undo', 'u'].contains(input);
   execute(state) => State(
         registry: state.history.last(state.registry),
         history: [...state.history.take(state.history.length - 1)],
       );
 }
 
+class Help extends Command {
+  final names = ['help', 'h', '?'];
+  final description = 'Print help message';
+  Help(super.input);
+  execute(State state) {
+    print('Available commands are:\n');
+    commands.map((factory) => factory('')).forEach((command) {
+      print(command.names.join(', '));
+      print('\t\t${command.description}\n');
+    });
+    return state;
+  }
+}
+
 /// Base class for arithmetic operation consuming two operants from registry
 abstract class Operator extends Command {
   Operator(super.input);
-  String get name;
   apply(num val1, num val2);
-  accept(registry) => registry.length > 1 && input == name;
+  accept(registry) => super.accept(registry) && registry.length > 1;
   execute(state) {
     final arg1 = state.registry.elementAt(state.registry.length - 2);
     final arg2 = state.registry.last;
@@ -93,36 +129,37 @@ abstract class Operator extends Command {
   }
 }
 
-/// Addition
 class Add extends Operator {
+  final names = ['+', 'add'];
+  final description = 'Addition';
   Add(super.input);
-  get name => '+';
   apply(val1, val2) => val1 + val2;
 }
 
-/// Subtraction
 class Subtract extends Operator {
+  final names = ['-', 'sub', 'subtract'];
+  final description = 'Subtraction';
   Subtract(super.input);
-  get name => '-';
   apply(val1, val2) => val1 - val2;
 }
 
-/// Multiplication
 class Multiply extends Operator {
+  final names = ['*', 'mul', 'multiply'];
+  final description = 'Multiplication';
   Multiply(super.input);
-  get name => '*';
   apply(val1, val2) => val1 * val2;
 }
 
-/// Division
 class Divide extends Operator {
+  final names = ['/', 'div', 'divide'];
+  final description = 'Division';
   Divide(super.input);
-  get name => '/';
   apply(val1, val2) => val1 / val2;
 }
 
 /// Fallback command for when no other accepts the input
 class Invalid extends Command {
+  final description = '';
   Invalid(super.input);
   accept(List<num> registry) => true;
   execute(State state) {

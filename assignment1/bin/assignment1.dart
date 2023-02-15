@@ -2,19 +2,6 @@ import 'dart:io';
 
 import 'package:assignment1/commands.dart';
 
-/// Factory functions for commands
-const commands = [
-  Enter.new,
-  Print.new,
-  Exit.new,
-  Clear.new,
-  Add.new,
-  Subtract.new,
-  Multiply.new,
-  Divide.new,
-  Undo.new,
-  Invalid.new
-];
 
 /// Allow us to lazy iterate over lines entered in console
 Iterable<String> readLines() sync* {
