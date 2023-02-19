@@ -46,7 +46,7 @@ class SnapchatScreen extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        padding: EdgeInsets.all(20), // Border width
+        padding: EdgeInsets.all(15), // Border width
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(30),
@@ -56,18 +56,15 @@ class SnapchatScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           child: Container(
             color: Colors.grey[200],
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildActionButton(Icons.location_pin),
-                  _buildActionButton(Icons.chat_bubble),
-                  _buildActionButton(Icons.camera_alt_outlined),
-                  _buildActionButton(Icons.people_alt_outlined),
-                  _buildActionButton(Icons.play_arrow_outlined),
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildActionButton(Icons.location_pin),
+                _buildActionButton(Icons.chat_bubble),
+                _buildActionButton(Icons.camera_alt_outlined),
+                _buildActionButton(Icons.people_alt_outlined),
+                _buildActionButton(Icons.play_arrow_outlined),
+              ],
             ),
           ),
         ),
@@ -91,6 +88,7 @@ class SnapchatScreen extends StatelessWidget {
         itemCount: howMany,
         separatorBuilder: (context, index) => Divider(),
         itemBuilder: (context, index) => CupertinoListTile(
+          key: ValueKey(index),
           leadingSize: 50,
           leading: CircleAvatar(
             foregroundImage: AssetImage('assets/person${index % 20}.jpg'),
@@ -111,10 +109,13 @@ class SnapchatScreen extends StatelessWidget {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildTileButton(Text(
-                "😊",
-                style: TextStyle(fontSize: 16),
-              )),
+              SizedBox(
+                height: 18,
+                child: Text(
+                  "😊",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
               _buildTileButton(Icon(Icons.photo_camera_outlined)),
             ],
           ),
