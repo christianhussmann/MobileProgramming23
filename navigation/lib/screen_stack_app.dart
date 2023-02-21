@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class ScreenStackApp extends StatelessWidget {
@@ -22,7 +20,7 @@ class FirstScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('First screen')),
       body: Center(
-        child: TextButton(
+        child: ElevatedButton(
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -45,17 +43,16 @@ class SecondScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Second Screen')),
       body: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+        child: Column(
           children: [
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => ThirdScreen()));
               },
               child: Text('Push'),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => ThirdScreen()));
@@ -77,10 +74,10 @@ class ThirdScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Third screen')),
       body: Center(
-        child: TextButton(
+        child: ElevatedButton(
           onPressed: () =>
               Navigator.of(context).popUntil((route) => route.isFirst),
-          child: Text('To the beginning'),
+          child: Text('First'),
         ),
       ),
     );
