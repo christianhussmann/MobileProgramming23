@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:assignment1/commands.dart';
-
+import '../lib/commands.dart';
 
 /// Allow us to lazy iterate over lines entered in console
 Iterable<String> readLines() sync* {

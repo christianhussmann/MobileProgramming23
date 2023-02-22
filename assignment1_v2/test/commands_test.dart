@@ -1,5 +1,5 @@
-import 'package:assignment1/commands.dart';
 import 'package:test/test.dart';
+import '../lib/commands.dart';
 
 void main() {
   group('Enter', () {
