@@ -1,5 +1,9 @@
 import 'models.dart';
 
+const String baseAssetURL =
+    'https://dartpad-workshops-io2021.web.app/getting_started_with_slivers/assets';
+const String headerImage = '${baseAssetURL}/header.jpeg';
+
 class Server {
   static List<DailyForecast> getDailyForecast() {
     final daily = _dailyForecast['daily'] as Map<String, Object>;
