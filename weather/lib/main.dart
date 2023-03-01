@@ -53,6 +53,7 @@ class _ForecastWidgetState extends State<ForecastWidget> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_view_week), label: 'Weekly'),
