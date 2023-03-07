@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'models.dart';
 
 const String baseAssetURL =
@@ -12,6 +13,19 @@ const String baseForecastUrl =
 
 class Server {
   static Map<String, dynamic>? _data;
+
+  static restore() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = await prefs.getString('forecast');
+    if (jsonString == null) return;
+    _data = json.decode(jsonString);
+  }
+
+  static save() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = json.encode(_data);
+    await prefs.setString('forecast', jsonString);
+  }
 
   static refresh() async {
     final response = await http.get(Uri.parse(baseForecastUrl));

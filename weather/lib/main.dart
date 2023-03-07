@@ -39,38 +39,42 @@ class ForecastWidget extends StatefulWidget {
 class _ForecastWidgetState extends State<ForecastWidget> {
   int _selectedIndex = 0;
   final _tabs = [
-    const WeeklyForecastList(),
-    const HourlyForecastList(),
+    WeeklyForecastList.new,
+    HourlyForecastList.new,
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await Server.refresh();
-          print('Refresh was called');
-        },
-        child: CustomScrollView(
-          slivers: <Widget>[
-            _buildSliverAppBar(),
-            _tabs.elementAt(_selectedIndex)
-          ],
+    return FutureBuilder(
+      future: Server.restore(),
+      builder: (context, snapshot) => Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await Server.refresh();
+            await Server.save();
+            print('Refresh was called');
+          },
+          child: CustomScrollView(
+            slivers: <Widget>[
+              _buildSliverAppBar(),
+              _tabs.elementAt(_selectedIndex).call()
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_view_week), label: 'Weekly'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_view_day), label: 'Hourly'),
-        ],
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_view_week), label: 'Weekly'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_view_day), label: 'Hourly'),
+          ],
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+        ),
       ),
     );
   }
