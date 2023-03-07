@@ -46,11 +46,17 @@ class _ForecastWidgetState extends State<ForecastWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          _buildSliverAppBar(),
-          _tabs.elementAt(_selectedIndex)
-        ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Server.refresh();
+          print('Refresh was called');
+        },
+        child: CustomScrollView(
+          slivers: <Widget>[
+            _buildSliverAppBar(),
+            _tabs.elementAt(_selectedIndex)
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -73,10 +79,6 @@ class _ForecastWidgetState extends State<ForecastWidget> {
     return SliverAppBar(
       pinned: true,
       stretch: true,
-      onStretchTrigger: () async {
-        print('Load new data!');
-        // await Server.requestNewData();
-      },
       backgroundColor: Colors.teal[800],
       expandedHeight: 200.0,
       flexibleSpace: FlexibleSpaceBar(
@@ -104,7 +106,6 @@ class _ForecastWidgetState extends State<ForecastWidget> {
     );
   }
 }
-
 
 // --------------------------------------------
 // Below this line are helper classes and data.
